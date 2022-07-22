@@ -85,8 +85,8 @@ style C fill:#00a826,stroke-width:0px,color:#fff
 
 ### Structure Project
 
-```
-project
+
+<!-- project
 │
 └─── core
 │    └─── models
@@ -98,8 +98,8 @@ project
 │    │    └─── adapter.go
 │    │
 │    └─── services
-│    │    └─── pod.go
-│    │    └─── adapter.go
+│         └─── pod.go
+│         └─── adapter.go
 │
 └─── common
 │    └─── cache
@@ -111,8 +111,8 @@ project
 │    │    └─── adapter.go
 │    │
 │    └─── storage
-│    │    └─── pod.go
-│    │    └─── adapter.go
+│         └─── pod.go
+│         └─── adapter.go
 │
 └─── handler
 │    └─── handler.go
@@ -127,33 +127,7 @@ project
 │
 └─── README.md
 └─── main.go
-└─── go.mod
+└─── go.mod -->
 
 
-```
-
-```mermaid
-  graph TD;
-      A-->B;
-      A-->C;
-      B-->D;
-      C-->D;
-
-```
-```mermaid
- classDiagram
-class Shape{
-    <<interface>>
-    noOfVertices
-    draw()
-}
-class Color{
-    <<enumeration>>
-    RED
-    BLUE
-    GREEN
-    WHITE
-    BLACK
-}
-```
 
