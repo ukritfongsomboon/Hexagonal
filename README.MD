@@ -138,4 +138,22 @@ project
       A-->C;
       B-->D;
       C-->D;
+
 ```
+```mermaid
+ classDiagram
+class Shape{
+    <<interface>>
+    noOfVertices
+    draw()
+}
+class Color{
+    <<enumeration>>
+    RED
+    BLUE
+    GREEN
+    WHITE
+    BLACK
+}
+```
+
