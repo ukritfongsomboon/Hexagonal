@@ -46,7 +46,7 @@ style C fill:#00a826,stroke-width:0px,color:#fff
 
 <!-- <h3 style="color:#1297f3;margin-top:30px">Presentation Layer</h3> -->
 ### **Presentation Layer**
-เป็นส่วนที่ใช้ในการติดต่อกับผู้ใช้งานโดยการใช้งานนั้นแบบได้ออกเป็นหลายรูปแบบขึ้นอยู่กับ Technology เช่น RESTfull ,Websocket, MessageQuery หรือ Cli โดยหน้าที่หลักๆ ของ layer นี้จะเป็นช่องทางที่ให้ User ใช้งานระบบได้ เช่น หากต้องการ API(Application Programing Interface) ที่ใช้ในการ เพิ่ม User ในระบบ ตัว Presentation Layer ก็จะใช้ libary หรือ Framework ที่สามาร ทำ API Server ได้ เช่น net/http,fiber หรือ echo เพื่อรองรับช่องทางที่จะรับคำสั่งและข้อมูลจาก User และเมื่อได้รับคำสั่งและข้อมูลเรียบร้อยแล้วก็จะส่งไปยัง Business Logic Layer ว่าสามารถทำตามที่ User ร้องขอได้หรือไม่  
+เป็นส่วนที่ใช้ในการติดต่อกับผู้ใช้งานโดยการใช้งานนั้นแบบได้ออกเป็นหลายรูปแบบขึ้นอยู่กับ Technology เช่น RESTfull ,Websocket, MessageQuery หรือ Cli โดยหน้าที่หลักๆ ของ layer นี้จะเป็นช่องทางที่ให้ User ใช้งานระบบได้ เช่น หากต้องการ API(Application Programing Interface) ที่ใช้ในการ เพิ่ม User ในระบบ ตัว Presentation Layer ก็จะใช้ libary หรือ Framework ที่สามาร ทำ API Server ได้ เช่น net/http,fiber หรือ echo เพื่อสร้างช่องทางที่จะรับคำสั่งและข้อมูลจาก User และเมื่อได้รับคำสั่งและข้อมูลเรียบร้อยแล้วก็จะส่งไปยัง Business Logic Layer ว่าสามารถทำตามที่ User ร้องขอได้หรือไม่  
 
 
 
