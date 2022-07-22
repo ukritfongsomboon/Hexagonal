@@ -9,7 +9,6 @@
     * [Business logic Layer](#business-logic-layer)
     * [Presentation Layer](#presentation-layer)
 * [Port & Adapter](#port--adapter)
-    * [Background](#background)
     * [Port](#port)
     * [Adapter](#adapter)
 * [Hexagonal]()
@@ -53,7 +52,6 @@ style C fill:#00a826,stroke-width:0px,color:#fff
 
 ## **Port & Adapter**
 
-### Background
 ### Port
 ### Adapter
 
