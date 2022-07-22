@@ -1,0 +1,187 @@
+definitions:
+  Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      message:
+        type: string
+    type: object
+  models.SignInReqModel:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  models.UserPaginationModel:
+    properties:
+      page:
+        type: integer
+      row:
+        type: integer
+      total:
+        type: integer
+    type: object
+  models.UserResGetAllModel:
+    properties:
+      item:
+        items:
+          $ref: '#/definitions/models.UserResModel'
+        type: array
+      pagination:
+        $ref: '#/definitions/models.UserPaginationModel'
+    type: object
+  models.UserResModel:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      role:
+        type: integer
+      user_id:
+        type: string
+    type: object
+host: localhost:3000
+info:
+  contact:
+    email: support@somewhere.com
+    name: API Support
+    url: http://somewhere.com/support
+  description: เป็นตัวอย่างการใช้งาน Hexagonal Architecture ด้วย Go Lang
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://somewhere.com/
+  title: Hexagonal API
+  version: 1.0.0
+paths:
+  /api/v1/signin:
+    post:
+      consumes:
+      - application/json
+      description: Get accesstoken with username and password
+      parameters:
+      - description: username & password
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/models.SignInReqModel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Response'
+      summary: Sign In with with username and password
+      tags:
+      - Sign In
+  /api/v1/user/{id}/account:
+    get:
+      consumes:
+      - application/json
+      description: get string by ID
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: desc
+          schema:
+            allOf:
+            - $ref: '#/definitions/Response'
+            - properties:
+                data:
+                  items:
+                    type: string
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.UserResGetAllModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.UserResGetAllModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.UserResGetAllModel'
+      summary: Show an account
+      tags:
+      - User
+  /api/v1/users:
+    get:
+      consumes:
+      - application/json
+      description: get all user in services
+      parameters:
+      - description: row of page
+        in: query
+        name: row
+        type: integer
+      - description: page
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: desc
+          schema:
+            allOf:
+            - $ref: '#/definitions/Response'
+            - properties:
+                data:
+                  items:
+                    type: string
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.UserResGetAllModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.UserResGetAllModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.UserResGetAllModel'
+      security:
+      - Authorization: []
+      summary: Get user
+      tags:
+      - User
+schemes:
+- https
+- http
+securityDefinitions:
+  Authorization:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
