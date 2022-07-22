@@ -15,15 +15,14 @@
 ```mermaid
 flowchart TB
 A(Presentation Layer) --> B(Business Logic Layer)
-A["fa:fa-database for peace"]
 B --> C(Data Layer)
-C --- id1[(MongoDB)]
-C --- id2[(MariaDB)]
-C --- id3[(Redis)]
+C --- id1[(database)]
+C --- id2[(database)]
+C --- id3[(database)]
 
 style A fill:#1297f3,stroke-width:0px,color:#fff 
-style id2 fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
-style id2 fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+style B fill:#d67b00,stroke-width:0px,color:#fff 
+style C fill:#00a826,stroke-width:0px,color:#fff 
 ```
 
 ### Data layer
