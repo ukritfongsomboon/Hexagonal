@@ -10,12 +10,12 @@
 
 ## Introduction
 ---
-ก่อนที่จะเข้าใจถึง Architecture Design ของ Hexagonal เราควรเข้าใจถึงการออกแบบของbระบบการทำงานของ Application กันเสียก่อนเพื่อให้รู้ว่า ก่อนที่เราจะออกแบบระบบนั้น เราควรแบบส่วนต่างๆ ระบบออกเป็นอย่างไร โดยส่วนมากแล้วจะแบ่งระบบออกเป็น 3 ส่วนคือ
+ก่อนที่จะเข้าใจถึง Architecture Design ของ Hexagonal เราควรเข้าใจถึงการออกแบบ ระบบการทำงานของ Application กันเสียก่อนเพื่อให้รู้ว่า ก่อนที่เราจะออกแบบระบบนั้น เราควรแบบส่วนต่างๆ ระบบออกเป็นอย่างไร โดยส่วนมากแล้วจะแบ่งระบบออกเป็น 3 ส่วนคือ
 
 ```mermaid
 flowchart TB
-A(Presentation Layer) --- B(Business Logic Layer)
-B --- C(Data Layer)
+A(Presentation Layer) --> B(Business Logic Layer)
+B --> C(Data Layer)
 ```
 
 ### Data layer
