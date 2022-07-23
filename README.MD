@@ -68,9 +68,15 @@ Hexagonal architecture ถูกคิดค้นโดย [Alistair Cockburn](
 
 #### **Principle**
 
-Hexagonal นั้นจะแบ่งส่วนต่างๆ ออกเป็น Core , Database และ user interface โดยในแต่ละส่วนนั้นจะเชื่อมต่อกัน แบบหลวมๆ 
+Hexagonal นั้นจะแบ่งส่วนต่างๆ ประกอบไปด้วย การทำงานหลักของระบบ(Core) ส่วนที่ใช้ในการติดต่อฐานข้อมูล(Database)  ส่วนติดต่อผู้ใช้(user interface) ส่วนที่ใช้สำหรับการทดสอบ(Testing) และส่วนที่ใช้ในการติดต่อกับระบบอื่นๆ โดยในแต่ละส่วนนั้นจะเชื่อมต่อกันแบบหลวมๆ ซื่งจะต่างจากการเขียนโปรแกรมแบบดั้งเดิม
 
 ### Port
+
+แต่ละองค์ประกอบเชื่อมต่อกับส่วนอื่น ๆ ผ่าน สิ่งที่เรียกว่า "Port" ซึ่งการสื่อสารผ่าน Port เหล่านี้เป็นไปตาม Protocols ที่กำหนดขึ้นอยู่กับวัตถุประสงและหน้าที่ของ Port นั้นๆ ซึ่ง Port นั้นจะเพียงแค่เป็นตัวที่ใช้ในการกำหนดรูปแบบของ Protocols ที่จะใช้ในการสื่อสารกัน
+
+> Ports and protocols define an abstract API that can be implemented by any suitable technical means
+
+
 
 ### Adapter
 
