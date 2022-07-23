@@ -54,6 +54,8 @@ style C fill:#00a826,stroke-width:0px,color:#fff
 
 ## **Hexagonal**
 
+<img style="width:100%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Hexagonal_Architecture.svg/626px-Hexagonal_Architecture.svg.png"/>
+
 #### **Hexagonal architecture** หรือ **Ports and Adapters architecture**
 
 เป็นรูปแบบของการออกแบบระบบที่ใช้ใน [Software Design](https://en.wikipedia.org/wiki/Software_design) มีจุดมุ่งหมายเพื่อ สร้างส่วนประกอบของ Application โดยเชื่อมต่อกัน อย่างหลวมๆ([Loose coupling](https://en.wikipedia.org/wiki/Loose_coupling)) เพื่อให้สามาราถเปลี่ยนแปลงแก้ไข Environment ได้โดยง่าย โดยใช้ Concept Port & [Adapter](https://en.wikipedia.org/wiki/Adapter_pattern) เพื่อทำให้ในสามารถเปลี่ยน Environment กันได้ในทุกๆ Layer และ ง่านต่อการ Test
