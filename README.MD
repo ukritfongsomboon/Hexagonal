@@ -54,7 +54,7 @@ style C fill:#00a826,stroke-width:0px,color:#fff
 
 ## **Hexagonal**
 
-<img style="width:100%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Hexagonal_Architecture.svg/626px-Hexagonal_Architecture.svg.png"/>
+<img style="width:250px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Hexagonal_Architecture.svg/626px-Hexagonal_Architecture.svg.png"/>
 
 #### **Hexagonal architecture** หรือ **Ports and Adapters architecture**
 
