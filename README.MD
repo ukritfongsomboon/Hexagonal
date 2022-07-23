@@ -4,16 +4,17 @@
 
 ## Table of contents
 
-* [Introduction](#introduction)
-    * [Data Layer](#data-layer)
-    * [Business logic Layer](#business-logic-layer)
-    * [Presentation Layer](#presentation-layer)
-* [Port & Adapter](#port--adapter)
-    * [Port](#port)
-    * [Adapter](#adapter)
-* [Hexagonal]()
-* [Environment](#environment-support)
-* [Libary](#libary)
+- [Introduction](#introduction)
+  - [Data Layer](#data-layer)
+  - [Business logic Layer](#business-logic-layer)
+  - [Presentation Layer](#presentation-layer)
+- [Hexagonal](#hexagonal)
+  - [Hexagonal architecture](#hexagonal-architecture-หรือ-ports-and-adapters-architecture)
+  - [Origin](#origin)
+  - [Port](#port)
+  - [Adapter](#adapter)
+- [Persistance Environment](#environment-support)
+- [Libary](#libary)
 
 ## **Introduction**
 
@@ -27,38 +28,44 @@ C --- id1[(database)]
 C --- id2[(database)]
 C --- id3[(database)]
 
-style A fill:#1297f3,stroke-width:0px,color:#fff 
-style B fill:#d67b00,stroke-width:0px,color:#fff 
-style C fill:#00a826,stroke-width:0px,color:#fff 
+style A fill:#1297f3,stroke-width:0px,color:#fff
+style B fill:#d67b00,stroke-width:0px,color:#fff
+style C fill:#00a826,stroke-width:0px,color:#fff
 ```
 
-
 <!-- <h3 style="color:#00a826">Data layer</h3> -->
-### **Data layer**
-เป็นส่วนที่ใช้ในการ เก็บข้อมูล หรือเป็นส่วนที่ใช้ในการติดต่อกับ Techonogy ที่ใช้ในการก็บข้อมูล หรือจะเรียกว่าส่วนที่ใช้ในการติดต่อ Database ก็ได้ เช่น หากว่าเราจะใช้ MongoDB หรือ Mysql เพื่อที่จะเก็บข้อมูลของ Application จะมีเพียง Data Layer เท่านั้นที่จะเชื่อมต่อ หรือ รู้ถึงการมีอยู่ของ Database ที่กำลัง Connect อยู่ใน Application  
 
+### **Data layer**
+
+เป็นส่วนที่ใช้ในการ เก็บข้อมูล หรือเป็นส่วนที่ใช้ในการติดต่อกับ Techonogy ที่ใช้ในการก็บข้อมูล หรือจะเรียกว่าส่วนที่ใช้ในการติดต่อ Database ก็ได้ เช่น หากว่าเราจะใช้ MongoDB หรือ Mysql เพื่อที่จะเก็บข้อมูลของ Application จะมีเพียง Data Layer เท่านั้นที่จะเชื่อมต่อ หรือ รู้ถึงการมีอยู่ของ Database ที่กำลัง Connect อยู่ใน Application
 
 <!-- <h3 style="color:#d67b00;margin-top:30px">Business Logic Layer</h3> -->
-### **Business Logic Layer**
-เป็นส่วนหลักของการทำงานของระบบ โดยการทำงานในส่วนนี้จะยึดโยงกับ Requirement ของ Application เป็นเป็นส่วนที่ใช้ในการ Process งานต่างๆ เช่น เมื่อมีการเพื่ม User เข้ามาในระบบ ส่วนของ Business Logic Layer จะต้องทำการ Process ว่า ข้อมูลของ User มีความถูกต้อง มีความครบถ้วน เกิดข้อผิดผลาด หรือ เกิดปัญหาใดๆ อย่างเช่น มี User นั้นอยู่ในระบบอยู่แล้ว การ Handler Error ต่างๆ การทำ Logger จะอยู่ใน Layer นี้ทั้งหมด หากว่า ข้อมูลมีความถูกต้องครบถ้วน ตาม Requirement ก็จะทำการส่ง ข้อมูลไปยัง Data Layer เพื่อบันทึกต่อไป 
 
+### **Business Logic Layer**
+
+เป็นส่วนหลักของการทำงานของระบบ โดยการทำงานในส่วนนี้จะยึดโยงกับ Requirement ของ Application เป็นเป็นส่วนที่ใช้ในการ Process งานต่างๆ เช่น เมื่อมีการเพื่ม User เข้ามาในระบบ ส่วนของ Business Logic Layer จะต้องทำการ Process ว่า ข้อมูลของ User มีความถูกต้อง มีความครบถ้วน เกิดข้อผิดผลาด หรือ เกิดปัญหาใดๆ อย่างเช่น มี User นั้นอยู่ในระบบอยู่แล้ว การ Handler Error ต่างๆ การทำ Logger จะอยู่ใน Layer นี้ทั้งหมด หากว่า ข้อมูลมีความถูกต้องครบถ้วน ตาม Requirement ก็จะทำการส่ง ข้อมูลไปยัง Data Layer เพื่อบันทึกต่อไป
 
 <!-- <h3 style="color:#1297f3;margin-top:30px">Presentation Layer</h3> -->
+
 ### **Presentation Layer**
-เป็นส่วนที่ใช้ในการติดต่อกับผู้ใช้งานโดยการใช้งานนั้นแบบได้ออกเป็นหลายรูปแบบขึ้นอยู่กับ Technology เช่น RESTfull ,Websocket, MessageQuery หรือ Cli โดยหน้าที่หลักๆ ของ layer นี้จะเป็นช่องทางที่ให้ User ใช้งานระบบได้ เช่น หากต้องการ API(Application Programing Interface) ที่ใช้ในการ เพิ่ม User ในระบบ ตัว Presentation Layer ก็จะใช้ libary หรือ Framework ที่สามาร ทำ API Server ได้ เช่น net/http,fiber หรือ echo เพื่อสร้างช่องทางที่จะรับคำสั่งและข้อมูลจาก User และเมื่อได้รับคำสั่งและข้อมูลเรียบร้อยแล้วก็จะส่งไปยัง Business Logic Layer ว่าสามารถทำตามที่ User ร้องขอได้หรือไม่  
 
-
-
-
-## **Port & Adapter**
-
-### Port
-### Adapter
+เป็นส่วนที่ใช้ในการติดต่อกับผู้ใช้งานโดยการใช้งานนั้นแบบได้ออกเป็นหลายรูปแบบขึ้นอยู่กับ Technology เช่น RESTfull ,Websocket, MessageQuery หรือ Cli โดยหน้าที่หลักๆ ของ layer นี้จะเป็นช่องทางที่ให้ User ใช้งานระบบได้ เช่น หากต้องการ API(Application Programing Interface) ที่ใช้ในการ เพิ่ม User ในระบบ ตัว Presentation Layer ก็จะใช้ libary หรือ Framework ที่สามาร ทำ API Server ได้ เช่น net/http,fiber หรือ echo เพื่อสร้างช่องทางที่จะรับคำสั่งและข้อมูลจาก User และเมื่อได้รับคำสั่งและข้อมูลเรียบร้อยแล้วก็จะส่งไปยัง Business Logic Layer ว่าสามารถทำตามที่ User ร้องขอได้หรือไม่
 
 ## **Hexagonal**
 
+#### **Hexagonal architecture** หรือ **Ports and Adapters architecture**
 
+เป็นรูปแบบของการออกแบบระบบที่ใช้ใน [Software Design](https://en.wikipedia.org/wiki/Software_design) มีจุดมุ่งหมายเพื่อ สร้างส่วนประกอบของ Application โดยเชื่อมต่อกัน อย่างหลวมๆ([Loose coupling](https://en.wikipedia.org/wiki/Loose_coupling)) เพื่อให้สามาราถเปลี่ยนแปลงแก้ไข Environment ได้โดยง่าย โดยใช้ Concept Port & [Adapter](https://en.wikipedia.org/wiki/Adapter_pattern) เพื่อทำให้ในสามารถเปลี่ยน Environment กันได้ในทุกๆ Layer และ ง่านต่อการ Test
 
+#### **Origin**
+
+Hexagonal architecture ถูกคิดค้นโดย [Alistair Cockburn](https://en.wikipedia.org/wiki/Alistair_Cockburn) เพื่อที่จะแก้ไขปัญหา Software Design ของ [object-oriented software design](https://en.wikipedia.org/wiki/Object-oriented_analysis_and_design) เช่นการที่มีส่วนของ Business logic ไปอยู่ใน Data layer เป็นต้นซึ่งทำให้เกิดปัญหาว่าหากเปลี่ยน Data layer ใหม่นั้นตัว Business logic นั้นก็จะทำงานไม่สมบูรณ์ เป็นต้น และได้เริ่มเผยแพร่ ในปี 2005
+
+คำว่า "Hexagonal" มากจากภาพของ cell ที่มี 6 เหลี่ยม แต่ไม่ได้หมายถึงว่าใน Software นั้นจะมีแค่เพียง 6  เส้นขอบ หรือ ช่องทาง(port) แต่เพื่อที่ต้องการจะบอกว่ามีพื้นที่ ที่เพียงพอสำหรับการแบ่ง Component และ Interface ต่างๆ ที่จำเป็นสำหรับที่ Component นั้นออกสู่ภายนอก
+
+### Port
+
+### Adapter
 
 ## **Features**
 
@@ -84,7 +91,6 @@ style C fill:#00a826,stroke-width:0px,color:#fff
 ---
 
 ### Structure Project
-
 
 <!-- project
 │
@@ -128,6 +134,3 @@ style C fill:#00a826,stroke-width:0px,color:#fff
 └─── README.md
 └─── main.go
 └─── go.mod -->
-
-
-
