@@ -92,8 +92,6 @@ class UserRepository{
     +GetUser() error
     +CreateUser(userid) error
 }
-click UserRepository call callbackFunction() "This is a tooltip for a callback"
-
 class UserRepositoryDB{
     <<Adapter>>
     UserModel : struct
@@ -101,7 +99,6 @@ class UserRepositoryDB{
     +GetUser() error
     +CreateUser(userid) error
 }
-
 class UserRepositoryMock{
     <<Adapter>>
     UserModel : struct
@@ -109,20 +106,9 @@ class UserRepositoryMock{
     +GetUser() error
     +CreateUser(userid) error
 }
-
-
-
 UserRepository <|-- UserRepositoryDB : implements
 UserRepository <|-- UserRepositoryMock : implements
-
-
-
 ```
-<script>
-    var callbackFunction = function () {
-      alert('A callback was triggered');
-    };
-</script>
 
 ## **Structure Application**
 
