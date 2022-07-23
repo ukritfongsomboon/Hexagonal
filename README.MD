@@ -120,6 +120,8 @@ UserRepository <|-- UserRepositoryMock : implements
 UserRepository <|.. MenuRepositoryDB : not implements
 ```
 
+จาก Diargram จะเห็นว่า UserRepositoryDB และ UserRepositoryMock นั้น Conform UserRepository เพราะฉะนั้นเราสามารถ Switch ตัว Data Source ได้ทั้นที แต่ MenuRepositoryDB ไม่ได้ Conform ตาม UserRepository จึงไม่สามารถต่เข้ากับ Switch Adapter ได้
+
 ## **Structure Application**
 
 
