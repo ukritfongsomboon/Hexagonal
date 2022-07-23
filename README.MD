@@ -11,6 +11,7 @@
 - [Hexagonal](#hexagonal)
   - [Hexagonal architecture](#hexagonal-architecture-หรือ-ports-and-adapters-architecture)
   - [Origin](#origin)
+  - [Principle](#principle)
   - [Port](#port)
   - [Adapter](#adapter)
 - [Persistance Environment](#environment-support)
