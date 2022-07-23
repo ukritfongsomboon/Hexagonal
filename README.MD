@@ -54,7 +54,7 @@ style C fill:#00a826,stroke-width:0px,color:#fff
 
 ## **Hexagonal**
 
-<img style="width:250px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Hexagonal_Architecture.svg/626px-Hexagonal_Architecture.svg.png"/>
+<img style="width:150px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Hexagonal_Architecture.svg/626px-Hexagonal_Architecture.svg.png"/>
 
 #### **Hexagonal architecture** หรือ **Ports and Adapters architecture**
 
@@ -65,6 +65,10 @@ style C fill:#00a826,stroke-width:0px,color:#fff
 Hexagonal architecture ถูกคิดค้นโดย [Alistair Cockburn](https://en.wikipedia.org/wiki/Alistair_Cockburn) เพื่อที่จะแก้ไขปัญหา Software Design ของ [object-oriented software design](https://en.wikipedia.org/wiki/Object-oriented_analysis_and_design) เช่นการที่มีส่วนของ Business logic ไปอยู่ใน Data layer เป็นต้นซึ่งทำให้เกิดปัญหาว่าหากเปลี่ยน Data layer ใหม่นั้นตัว Business logic นั้นก็จะทำงานไม่สมบูรณ์ เป็นต้น และได้เริ่มเผยแพร่ ในปี 2005
 
 คำว่า "Hexagonal" มากจากภาพของ cell ที่มี 6 เหลี่ยม แต่ไม่ได้หมายถึงว่าใน Software นั้นจะมีแค่เพียง 6  ช่องทาง(port) ที่จะออกสู่ภายนอก แต่เพื่อที่ต้องการจะบอกว่ามีพื้นที่ สำหรับการแบ่ง Component และ Interface ต่างๆ ที่จำเป็น
+
+#### **Principle**
+
+Hexagonal นั้นจะแบ่งส่วนต่างๆ ออกเป็น Core , Database และ user interface โดยในแต่ละส่วนนั้นจะเชื่อมต่อกัน แบบหลวมๆ 
 
 ### Port
 
