@@ -88,26 +88,36 @@ Hexagonal นั้นจะแบ่งส่วนต่างๆ ประก
 classDiagram
 class UserRepository{
     <<Port>>
-    UserModel : struct
+    -UserModel : struct
     +GetUser() error
     +CreateUser(userid) error
 }
 class UserRepositoryDB{
     <<Adapter>>
-    UserModel : struct
-    db : *mongodb.Database
+    -UserModel : struct
+    -db : *mongodb.Database
     +GetUser() error
     +CreateUser(userid) error
 }
 class UserRepositoryMock{
     <<Adapter>>
-    UserModel : struct
-    MockUser : []UserModel
+    -UserModel : struct
+    -MockUser : []UserModel
     +GetUser() error
     +CreateUser(userid) error
 }
+
+class MenuRepositoryDB{
+    <<Not Adapter of port>>
+    -MenuModel : struct
+    +GetMenu() error
+    +CreateMenu(userid) error
+    +DeleteMenu(userid) error
+}
+
 UserRepository <|-- UserRepositoryDB : implements
 UserRepository <|-- UserRepositoryMock : implements
+UserRepository <|.. MenuRepositoryDB : not implements
 ```
 
 ## **Structure Application**
