@@ -2,13 +2,12 @@ package main
 
 import (
 	"context"
-	"fmt"
 
 	"hexagonal/common/cache"
 	"hexagonal/common/logs"
+	"hexagonal/core/handlers"
 	"hexagonal/core/repositories"
 	"hexagonal/core/services"
-	"hexagonal/handlers"
 
 	"hexagonal/middlewares"
 
@@ -29,7 +28,7 @@ import (
 )
 
 func init() {
-	fmt.Println(fmt.Sprintf("\x1b[%dm%s\x1b[0m", 36, "\nInitial Application"))
+	// fmt.Println(fmt.Sprintf("\x1b[%dm%s\x1b[0m", 36, "\nInitial Application"))
 	initTime()
 	initConfig()
 }
@@ -75,8 +74,8 @@ func initTime() {
 		panic(err)
 	}
 	time.Local = ict
-	colored := fmt.Sprintf("\x1b[%dm%s\x1b[0m", 31, "\t time \t: ")
-	fmt.Println(colored + "Success")
+	// colored := fmt.Sprintf("\x1b[%dm%s\x1b[0m", 31, "\t time \t: ")
+	// fmt.Println(colored + "Success")
 }
 
 func initConfig() {
@@ -96,8 +95,8 @@ func initConfig() {
 	if err != nil {
 		panic(err)
 	}
-	colored := fmt.Sprintf("\x1b[%dm%s\x1b[0m", 31, "\t viper \t: ")
-	fmt.Println(colored + "Success")
+	// colored := fmt.Sprintf("\x1b[%dm%s\x1b[0m", 31, "\t viper \t: ")
+	// fmt.Println(colored + "Success")
 }
 
 // @title Hexagonal API
