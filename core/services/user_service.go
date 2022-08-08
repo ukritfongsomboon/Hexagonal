@@ -197,28 +197,46 @@ func (s userService) SignIn(payload *models.SignInReqModel) (*models.SignInResMo
 		}
 	}
 
-	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(payload.Password))
-	if err != nil {
-		return nil, utils.HandlerError{
-			Code:    401,
-			Message: "username or password is incorrect",
+	// TODO Get Array is local Provider
+
+	for _, v := range user.Oauth {
+		if v.Provider == "local" {
+			err = bcrypt.CompareHashAndPassword([]byte(v.Password), []byte(payload.Password))
+			if err != nil {
+				// # Tech Error
+				s.log.Error(err)
+				return nil, utils.HandlerError{
+					Code:    500,
+					Message: "unexpected error",
+				}
+
+			}
+			private := viper.GetString("app.access_token_private_key")
+			token, err := utils.CreateToken(30*time.Minute, user.UserID, user.Role, private)
+			if err != nil {
+				return nil, utils.HandlerError{
+					Code:    500,
+					Message: "unexpected error",
+				}
+			}
+
+			//# DTO
+			t := models.SignInResModel{
+				Accesstoken: token,
+				Status:      user.Status,
+				Name:        user.Name,
+				Email:       strings.ToLower(user.Email),
+				Role:        user.Role,
+			}
+
+			// TODO 5.Return To handler
+			return &t, nil
 		}
-
 	}
-	private := viper.GetString("app.access_token_private_key")
-	token, err := utils.CreateToken(30*time.Minute, user.UserID, user.Role, private)
-
-	//# DTO
-	t := models.SignInResModel{
-		Accesstoken: token,
-		Status:      user.Status,
-		Name:        user.Name,
-		Email:       strings.ToLower(user.Email),
-		Role:        user.Role,
+	return nil, utils.HandlerError{
+		Code:    401,
+		Message: "username or password is incorrect",
 	}
-
-	// TODO 5.Return To handler
-	return &t, nil
 }
 
 func (s userService) SignUp(r *models.SignUpReqModel) (*models.SignUpResModel, error) {
@@ -238,6 +256,7 @@ func (s userService) SignUp(r *models.SignUpReqModel) (*models.SignUpResModel, e
 		Password: string(newPass),
 		Status:   false,
 		Role:     1,
+		Provider: "local",
 	}
 
 	// TODO 4.insert to db

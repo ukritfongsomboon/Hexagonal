@@ -12,7 +12,7 @@ type UserOauthModel struct {
 type UserModel struct {
 	UserID      string           `json:"user_id" bson:"user_id" db:"user_id"`
 	Email       string           `json:"email" bson:"email" db:"email"`
-	Password    string           `json:"password" bson:"password"`
+	// Password    string           `json:"password" bson:"password"`
 	Name        string           `json:"name" bson:"name" db:"name"`
 	CreatedDate time.Time        `json:"create_date" bson:"create_date" db:"create_date"`
 	LastUpdate  time.Time        `json:"update_date" bson:"update_date" db:"update_date"`
@@ -33,6 +33,7 @@ type UserCreateModel struct {
 	Name     string `json:"name" bson:"name" db:"name"`
 	Role     int    `json:"role" bson:"role" db:"role"`
 	Status   bool   `json:"status" bson:"status" db:"status"`
+	Provider string `json:"provider" bson:"provider" db:"provider"`
 }
 
 type UserResModel struct {

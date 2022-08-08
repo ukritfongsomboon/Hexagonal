@@ -44,7 +44,6 @@ func (s menuService) GetMenus() ([]models.MenuResModel, error) {
 }
 
 func (s menuService) CreateMenu(m models.MenuCreateReqModel) (*models.MenuCreateResModel, error) {
-
 	// # Data tranfer object handeler --> service
 	reqData := models.MenuCreateReqModel{
 		Role:        m.Role,

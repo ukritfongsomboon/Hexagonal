@@ -13,7 +13,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var collection_user = "hexagonal_users"
+var collection_user = "hexagonal_users_test"
 
 type userRepositoryDB struct {
 	db *mongo.Database
@@ -68,16 +68,24 @@ func (r userRepositoryDB) Create(payload models.UserCreateModel) (*models.UserMo
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancel()
 
+	id := uuid.New().String()
 	user := models.UserModel{
 		CreatedDate: time.Now(),
 		LastUpdate:  time.Now(),
 		Email:       payload.Email,
 		Name:        payload.Name,
-		Password:    payload.Password,
-		Status:      false,
+		// Password:    "",
+		Status:      true,
 		Role:        0,
-		UserID:      uuid.New().String(),
-		Oauth:       []models.UserOauthModel{},
+		UserID:      id,
+		Oauth: []models.UserOauthModel{
+			{
+				Provider: payload.Provider,
+				Id:       id,
+				Email:    payload.Email,
+				Password: payload.Password,
+			},
+		},
 	}
 
 	res, err := r.db.Collection(collection_user).InsertOne(ctx, &user)
@@ -99,7 +107,7 @@ func (r userRepositoryDB) Create(payload models.UserCreateModel) (*models.UserMo
 		},
 	}
 
-	if _, err := r.db.Collection("hexagonal_users").Indexes().CreateMany(ctx, indexField); err != nil {
+	if _, err := r.db.Collection(collection_user).Indexes().CreateMany(ctx, indexField); err != nil {
 		// TODO แก้ไข เมื่อ setindex ไม่ได้ ไม่ต้อง errorออกมา หรือแก้เป็น log warning
 		return nil, errors.New("could not create index")
 	}
