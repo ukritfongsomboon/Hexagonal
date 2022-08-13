@@ -6,6 +6,7 @@ import (
 
 	"hexagonal/common/cache"
 	"hexagonal/common/logs"
+	"hexagonal/common/storage"
 	"hexagonal/core/models"
 	"hexagonal/core/repositories"
 
@@ -21,11 +22,12 @@ import (
 type userService struct {
 	cache    cache.AppCache
 	log      logs.AppLog
+	disk     storage.AppStorage
 	userRepo repositories.UserRepository
 }
 
-func NewUserService(log logs.AppLog, cache cache.AppCache, userRepo repositories.UserRepository) UserService {
-	return userService{userRepo: userRepo, cache: cache, log: log}
+func NewUserService(log logs.AppLog, cache cache.AppCache, disk storage.AppStorage, userRepo repositories.UserRepository) UserService {
+	return userService{userRepo: userRepo, cache: cache, log: log, disk: disk}
 }
 
 func (s userService) GetUsers(p models.UserPaginationModel) (*models.UserResGetAllModel, error) {
@@ -291,5 +293,33 @@ func (s userService) SignUp(r *models.SignUpReqModel) (*models.SignUpResModel, e
 }
 
 func (s userService) UpdateUser(models.UserUpdateReqModel) error {
+	return nil
+}
+
+func (s userService) UpdateUserImage(user_id string, fileType string, filedata []byte) error {
+	filename := user_id + fileType
+	// s.disk.Write()
+	// # เป็น Service ที่ใช้ในการ Update Profile Image
+	// TODO Recive User_id ที่ต้องการ Update
+	// TODO filetype หรือนามสกุลของ File
+	// TODO Filedata คือ slice byte ของไฟล์ เมื่อ Read จาก body
+
+	// # Check User is not Exists in Application
+
+	// # Write File To Disk
+	if err := s.disk.Write("files/images/"+filename, filedata); err != nil {
+		s.log.Error(err)
+	}
+
+	// # Update To Repository
+	x := models.UserUpdateImgReqModel{
+		UserID:   "6a8aede2-2145-4b0e-817b-a989bec20402",
+		Filename: filename,
+	}
+	_, err := s.userRepo.UpdateImage(x)
+	if err != nil {
+		s.log.Error(err)
+	}
+
 	return nil
 }

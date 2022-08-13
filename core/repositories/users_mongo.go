@@ -75,9 +75,9 @@ func (r userRepositoryDB) Create(payload models.UserCreateModel) (*models.UserMo
 		Email:       payload.Email,
 		Name:        payload.Name,
 		// Password:    "",
-		Status:      true,
-		Role:        0,
-		UserID:      id,
+		Status: true,
+		Role:   0,
+		UserID: id,
 		Oauth: []models.UserOauthModel{
 			{
 				Provider: payload.Provider,
@@ -153,6 +153,30 @@ func (r userRepositoryDB) Update(u models.UserUpdateReqModel) (*models.UserModel
 
 	filter := bson.D{{"user_id", u.UserID}}
 	update := bson.D{{"$set", bson.D{{"email", u.Email}, {"name", u.Name}, {"update_date", time.Now()}}}}
+
+	_, err := r.db.Collection(collection_user).UpdateOne(ctx, filter, update)
+	if err != nil {
+		return nil, err
+	}
+
+	var newUser models.UserModel
+	query := bson.M{"user_id": u.UserID}
+
+	err = r.db.Collection(collection_user).FindOne(ctx, query).Decode(&newUser)
+	if err != nil {
+		return nil, err
+	}
+
+	return &newUser, nil
+}
+
+func (r userRepositoryDB) UpdateImage(u models.UserUpdateImgReqModel) (*models.UserModel, error) {
+	// # Update file name to Database
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+
+	filter := bson.D{{"user_id", u.UserID}}
+	update := bson.D{{"$set", bson.D{{"image", u.Filename}, {"update_date", time.Now()}}}}
 
 	_, err := r.db.Collection(collection_user).UpdateOne(ctx, filter, update)
 	if err != nil {

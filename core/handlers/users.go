@@ -1,9 +1,12 @@
 package handlers
 
 import (
+	"fmt"
 	"hexagonal/core/models"
 	"hexagonal/core/services"
 	"hexagonal/utils"
+	"io/ioutil"
+	"path/filepath"
 	"strconv"
 	"time"
 
@@ -199,4 +202,41 @@ func (h userHandler) SignUp(c *fiber.Ctx) error {
 		"message": "create user success",
 		"data":    user,
 	})
+}
+
+func (h userHandler) UpdateImageProfile(c *fiber.Ctx) error {
+	user_id := c.FormValue("user_id")
+	data, _ := c.FormFile("file")
+	filetype := filepath.Ext(data.Filename)
+	// fileType := data.Header.Get("Content-Type")
+
+	file, err := data.Open()
+	defer file.Close()
+	if err != nil {
+		return err
+	}
+	fileBytes, err := ioutil.ReadAll(file)
+	if err != nil {
+		fmt.Println(err)
+	}
+	err = h.userSrv.UpdateUserImage(user_id, filetype, fileBytes)
+	if err != nil {
+		appErr, ok := err.(utils.HandlerError)
+		if ok {
+			return c.Status(appErr.Code).JSON(fiber.Map{
+				"code":    appErr.Code,
+				"status":  false,
+				"message": appErr.Message,
+				"data":    "",
+			})
+		}
+	}
+
+	return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+		"code":    fiber.StatusCreated,
+		"status":  true,
+		"message": "update success",
+		"data":    "",
+	})
+
 }

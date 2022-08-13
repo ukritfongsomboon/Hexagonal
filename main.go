@@ -5,6 +5,7 @@ import (
 
 	"hexagonal/common/cache"
 	"hexagonal/common/logs"
+	"hexagonal/common/storage"
 	"hexagonal/core/handlers"
 	"hexagonal/core/repositories"
 	"hexagonal/core/services"
@@ -113,17 +114,18 @@ func main() {
 	db := initDB_mongodb()
 	ch := initCache_redis()
 
-	// # init Global Adapter
-	log := logs.NewAppLogs()
-	cache := cache.NewAppCache(ch)
+	// # init Common Adapter
+	log := logs.NewAppLogs()        // # Logging in Application
+	cache := cache.NewAppCache(ch)  // # Cacheing in Application
+	disk := storage.NewAppStorage() // # Storage in Application
 
 	// userRepository := repositories.NewUserRepositoryMock() // # Data Layer Mock
-	userRepository := repositories.NewUserRepositoryDB(db)             // # Data Layer
-	userService := services.NewUserService(log, cache, userRepository) // # Business Layer
-	userHandler := handlers.NewUserHandler(userService)                // # Presentation Layer
+	userRepository := repositories.NewUserRepositoryDB(db)                   // # Data Layer
+	userService := services.NewUserService(log, cache, disk, userRepository) // # Business Layer
+	userHandler := handlers.NewUserHandler(userService)                      // # Presentation Layer
 
-	menuRepository := repositories.NewMenuRepositoryMock()
-	// menuRepository := repositories.NewMenuRepositoryDB(db)      // # Data Layer
+	// menuRepository := repositories.NewMenuRepositoryMock() // # Data Layer Mock
+	menuRepository := repositories.NewMenuRepositoryDB(db)      // # Data Layer
 	menuService := services.NewMenuService(log, menuRepository) // # Business Layer
 	menuHandler := handlers.NewMenuHandler(menuService)         // # Presentation Layer
 
@@ -138,6 +140,7 @@ func main() {
 	app.Get("/api/v1/user/:userid/account", middlewares.ValToken, middlewares.ValPer([]int{1, 2, 3}), userHandler.GetUser)
 	app.Post("/api/v1/signin", userHandler.SignIn)
 	app.Post("/api/v1/signup", userHandler.SignUp)
+	app.Put("/api/v1/user/image", userHandler.UpdateImageProfile)
 
 	app.Get("/api/v1/menus", menuHandler.GetMenu)
 	app.Post("/api/v1/menu", menuHandler.CreateMenu)

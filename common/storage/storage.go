@@ -1,7 +1,7 @@
 package storage
 
-type StorageApp interface {
-	Write() error
-	Read() error
-	Delete() error
+type AppStorage interface {
+	Write(string, []byte) error
+	Read(string) error
+	Delete(string) error
 }

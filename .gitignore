@@ -1,2 +1,5 @@
 config.yaml
 swag
+*.png
+*jpg
+*.jpeg

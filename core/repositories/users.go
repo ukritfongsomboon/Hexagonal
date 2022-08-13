@@ -9,4 +9,5 @@ type UserRepository interface {
 	GetCountAll() (int64, error)
 	Create(models.UserCreateModel) (*models.UserModel, error)
 	Update(models.UserUpdateReqModel) (*models.UserModel, error)
+	UpdateImage(models.UserUpdateImgReqModel) (*models.UserModel, error)
 }
