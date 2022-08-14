@@ -87,6 +87,7 @@ func initConfig() {
 	// # Default value ////////////////////////////
 	viper.SetDefault("app.port", 3000)
 	viper.SetDefault("app.env", "production")
+	viper.SetDefault("storage.path", "files")
 	// # //////////////////////////////////////////
 
 	err := viper.ReadInConfig()

@@ -3,6 +3,8 @@ package storage
 import (
 	"os"
 	"path/filepath"
+
+	"github.com/spf13/viper"
 )
 
 // # When Local disk storage is not use
@@ -15,8 +17,11 @@ func NewAppStorage() AppStorage {
 }
 
 func (sr storageApp) Write(filename string, data []byte) error {
+	basepart := viper.GetString("storage.path")
+	fulldir := filepath.Join(basepart, filename)
+
 	// # Split filename and directory
-	dir, _ := filepath.Split(filename)
+	dir, _ := filepath.Split(fulldir)
 
 	// # When directory is not root path of application
 	if dir != "" {
@@ -28,7 +33,7 @@ func (sr storageApp) Write(filename string, data []byte) error {
 	}
 
 	// # Create File
-	f, err := os.Create(filename)
+	f, err := os.Create(fulldir)
 	if err != nil {
 		return err
 	}

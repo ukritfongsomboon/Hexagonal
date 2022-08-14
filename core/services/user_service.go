@@ -307,13 +307,13 @@ func (s userService) UpdateUserImage(user_id string, fileType string, filedata [
 	// # Check User is not Exists in Application
 
 	// # Write File To Disk
-	if err := s.disk.Write("files/images/"+filename, filedata); err != nil {
+	if err := s.disk.Write(filename, filedata); err != nil {
 		s.log.Error(err)
 	}
 
 	// # Update To Repository
 	x := models.UserUpdateImgReqModel{
-		UserID:   "6a8aede2-2145-4b0e-817b-a989bec20402",
+		UserID:   user_id,
 		Filename: filename,
 	}
 	_, err := s.userRepo.UpdateImage(x)

@@ -1,6 +1,10 @@
 package middlewares
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"fmt"
+
+	"github.com/gofiber/fiber/v2"
+)
 
 func ValPer(listPer []int) fiber.Handler {
 	return func(c *fiber.Ctx) error {
@@ -17,5 +21,13 @@ func ValPer(listPer []int) fiber.Handler {
 			"message": "permission denied",
 			"data":    "",
 		})
+	}
+}
+
+// AuthReq middleware
+func AuthReq(data string) fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		fmt.Println(data)
+		return nil
 	}
 }
